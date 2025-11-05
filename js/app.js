@@ -1,48 +1,60 @@
 // ========== DATOS DE EJEMPLO PRE-CARGADOS ==========
 
-// Servicios ofrecidos de ejemplo
+// Servicios ofrecidos de ejemplo (con avatares y calificaciones)
 const serviciosIniciales = [
     {
         categoria: "Limpieza",
         descripcion: "Limpieza profunda de casas y apartamentos. Incluye baños, cocina y habitaciones.",
         precio: "80000",
         nombre: "María González",
-        telefono: "3201234567"
+        telefono: "3201234567",
+        avatar: "https://i.pravatar.cc/150?img=47",
+        rating: 4.8
     },
     {
         categoria: "Plomería",
         descripcion: "Reparación de fugas, instalación de lavamanos y mantenimiento de tuberías.",
         precio: "120000",
         nombre: "Carlos Ramírez",
-        telefono: "3157654321"
+        telefono: "3157654321",
+        avatar: "https://i.pravatar.cc/150?img=12",
+        rating: 4.5
     },
     {
         categoria: "Electricidad",
         descripcion: "Instalación de lámparas, arreglo de tomas corrientes y revisión de tableros eléctricos.",
         precio: "100000",
         nombre: "José Martínez",
-        telefono: "3009876543"
+        telefono: "3009876543",
+        avatar: "https://i.pravatar.cc/150?img=33",
+        rating: 5.0
     },
     {
         categoria: "Jardinería",
         descripcion: "Poda de árboles, mantenimiento de jardines y siembra de plantas ornamentales.",
         precio: "60000",
         nombre: "Ana Rodríguez",
-        telefono: "3189012345"
+        telefono: "3189012345",
+        avatar: "https://i.pravatar.cc/150?img=45",
+        rating: 4.9
     },
     {
         categoria: "Cuidado",
         descripcion: "Cuidado de adultos mayores con experiencia. Horarios flexibles.",
         precio: "150000",
         nombre: "Lucía Fernández",
-        telefono: "3112223344"
+        telefono: "3112223344",
+        avatar: "https://i.pravatar.cc/150?img=48",
+        rating: 5.0
     },
     {
         categoria: "Transporte",
         descripcion: "Servicio de transporte particular en moto para mandados y diligencias.",
         precio: "30000",
         nombre: "Pedro López",
-        telefono: "3205556677"
+        telefono: "3205556677",
+        avatar: "https://i.pravatar.cc/150?img=15",
+        rating: 4.3
     }
 ];
 
@@ -91,6 +103,37 @@ const solicitudesIniciales = [
         telefono: "3133334455"
     }
 ];
+
+// ========== FUNCIONES AUXILIARES ==========
+
+// Generar avatar aleatorio
+function generarAvatar() {
+    const numeroAleatorio = Math.floor(Math.random() * 70) + 1;
+    return `https://i.pravatar.cc/150?img=${numeroAleatorio}`;
+}
+
+// Generar calificación aleatoria
+function generarRating() {
+    return (Math.random() * (5.0 - 3.5) + 3.5).toFixed(1);
+}
+
+// Renderizar estrellas de calificación
+function renderizarEstrellas(rating) {
+    const estrellas = [];
+    const ratingNumerico = parseFloat(rating);
+    
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(ratingNumerico)) {
+            estrellas.push('<span class="star">★</span>');
+        } else if (i === Math.ceil(ratingNumerico) && ratingNumerico % 1 !== 0) {
+            estrellas.push('<span class="star">★</span>');
+        } else {
+            estrellas.push('<span class="star empty">★</span>');
+        }
+    }
+    
+    return estrellas.join('');
+}
 
 // ========== INICIALIZACIÓN ==========
 
@@ -182,15 +225,34 @@ function cargarServiciosOfrecidos() {
     
     let html = '';
     servicios.forEach((servicio, index) => {
+        // Asegurar que el servicio tenga avatar y rating
+        if (!servicio.avatar) {
+            servicio.avatar = generarAvatar();
+        }
+        if (!servicio.rating) {
+            servicio.rating = generarRating();
+        }
+        
         html += `
             <div class="servicio-card">
+                <div class="perfil-container">
+                    <img src="${servicio.avatar}" alt="${servicio.nombre}" class="perfil-avatar" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(servicio.nombre)}&background=3399DB&color=fff&size=150'">
+                    <div class="perfil-info">
+                        <p class="perfil-nombre">${servicio.nombre}</p>
+                        <div class="rating-container">
+                            <div class="stars">
+                                ${renderizarEstrellas(servicio.rating)}
+                            </div>
+                            <span class="rating-text">${servicio.rating}/5.0</span>
+                        </div>
+                    </div>
+                </div>
                 <h4 style="color: var(--color-azul); margin-bottom: 10px;">${servicio.categoria}</h4>
                 <p style="margin-bottom: 10px;">${servicio.descripcion}</p>
                 <p style="font-size: 20px; color: var(--color-verde); font-weight: bold; margin-bottom: 10px;">
                     Precio: $${parseInt(servicio.precio).toLocaleString('es-CO')} COP
                 </p>
                 <div class="contacto-info">
-                    <strong>👤 Contacto:</strong> ${servicio.nombre}<br>
                     <strong>📱 Teléfono:</strong> ${servicio.telefono}
                 </div>
             </div>
@@ -198,6 +260,9 @@ function cargarServiciosOfrecidos() {
     });
     
     contenedor.innerHTML = html;
+    
+    // Actualizar LocalStorage con avatares y ratings generados
+    localStorage.setItem('serviciosOfrecidos', JSON.stringify(servicios));
 }
 
 function filtrarServiciosOfrecidos() {
@@ -219,13 +284,24 @@ function filtrarServiciosOfrecidos() {
     serviciosFiltrados.forEach(servicio => {
         html += `
             <div class="servicio-card">
+                <div class="perfil-container">
+                    <img src="${servicio.avatar}" alt="${servicio.nombre}" class="perfil-avatar" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(servicio.nombre)}&background=3399DB&color=fff&size=150'">
+                    <div class="perfil-info">
+                        <p class="perfil-nombre">${servicio.nombre}</p>
+                        <div class="rating-container">
+                            <div class="stars">
+                                ${renderizarEstrellas(servicio.rating)}
+                            </div>
+                            <span class="rating-text">${servicio.rating}/5.0</span>
+                        </div>
+                    </div>
+                </div>
                 <h4 style="color: var(--color-azul); margin-bottom: 10px;">${servicio.categoria}</h4>
                 <p style="margin-bottom: 10px;">${servicio.descripcion}</p>
                 <p style="font-size: 20px; color: var(--color-verde); font-weight: bold; margin-bottom: 10px;">
                     Precio: $${parseInt(servicio.precio).toLocaleString('es-CO')} COP
                 </p>
                 <div class="contacto-info">
-                    <strong>👤 Contacto:</strong> ${servicio.nombre}<br>
                     <strong>📱 Teléfono:</strong> ${servicio.telefono}
                 </div>
             </div>
@@ -322,7 +398,9 @@ document.getElementById('form-ofrecer').addEventListener('submit', function(e) {
         descripcion,
         precio,
         nombre: usuario.nombre,
-        telefono: usuario.telefono
+        telefono: usuario.telefono,
+        avatar: generarAvatar(),
+        rating: generarRating()
     };
     
     // Agregar a LocalStorage

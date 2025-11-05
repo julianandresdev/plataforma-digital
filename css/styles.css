@@ -246,3 +246,121 @@ label {
         font-size: 16px;
     }
 }
+/* ========== BOTÓN VOLVER FIJO ========== */
+.btn-volver-fijo {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6c757d;
+    color: white;
+    min-height: 55px;
+    padding: 0 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.btn-volver-fijo:hover {
+    background-color: #5a6268;
+    color: white;
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Ajuste para móvil */
+@media (max-width: 576px) {
+    .btn-volver-fijo {
+        bottom: 15px;
+        min-height: 50px;
+        font-size: 16px;
+        padding: 0 25px;
+    }
+}
+
+/* ========== FOTOS DE PERFIL Y CALIFICACIONES ========== */
+
+/* Contenedor de perfil */
+.perfil-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* Foto de perfil */
+.perfil-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-azul);
+    flex-shrink: 0;
+}
+
+/* Info del perfil */
+.perfil-info {
+    flex: 1;
+}
+
+.perfil-nombre {
+    font-weight: 700;
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+/* Sistema de calificación con estrellas */
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stars {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.star {
+    color: #ffc107;
+    font-size: 18px;
+}
+
+.star.empty {
+    color: #e0e0e0;
+}
+
+.rating-text {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 576px) {
+    .perfil-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .perfil-nombre {
+        font-size: 16px;
+    }
+
+    .star {
+        font-size: 16px;
+    }
+}
+
+/* Espaciado adicional en las cards para el botón fijo */
+.servicio-card:last-child,
+.solicitud-card:last-child {
+    margin-bottom: 100px;
+}
