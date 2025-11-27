@@ -1,654 +1,730 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
     <title>Servicios Comunitarios</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 80px;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        padding-bottom: 80px;
+      }
 
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #3399db;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        background: #3399db;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s;
+        margin: 5px;
+      }
+
+      .btn:hover {
+        background: #2278ba;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(51, 153, 219, 0.3);
+      }
+
+      .btn-success {
+        background: #4db34d;
+      }
+
+      .btn-success:hover {
+        background: #3d923d;
+      }
+
+      .btn-warning {
+        background: #ff9933;
+      }
+
+      .btn-warning:hover {
+        background: #e67e1a;
+      }
+
+      .btn-danger {
+        background: #dc3545;
+      }
+
+      .btn-danger:hover {
+        background: #c82333;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+      }
+
+      .btn-secondary:hover {
+        background: #545b62;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #3399db;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .card {
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        transition: all 0.3s;
+      }
+
+      .card:hover {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 5px;
+      }
+
+      .badge-alta {
+        background: #dc3545;
+        color: white;
+      }
+
+      .badge-media {
+        background: #ff9933;
+        color: white;
+      }
+
+      .badge-baja {
+        background: #4db34d;
+        color: white;
+      }
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #3399db;
+      }
+
+      .rating {
+        color: #ffd700;
+        font-size: 18px;
+      }
+
+      /* Botones fijos persistentes */
+      .fixed-buttons {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+
+      .btn-fixed {
+        background: #3399db;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s;
+        white-space: nowrap;
+      }
+
+      .btn-fixed:hover {
+        background: #2278ba;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-fixed.logout {
+        background: #dc3545;
+      }
+
+      .btn-fixed.logout:hover {
+        background: #c82333;
+      }
+
+      .btn-fixed.help {
+        background: #4db34d;
+      }
+
+      .btn-fixed.help:hover {
+        background: #3d923d;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .menu-card {
+        background: linear-gradient(135deg, #3399db 0%, #2278ba 100%);
+        color: white;
+        padding: 30px 20px;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(51, 153, 219, 0.4);
+      }
+
+      .menu-card h3 {
+        color: white;
+        margin: 0;
+      }
+
+      .chat-container {
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f9f9f9;
+      }
+
+      .message {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border-left: 4px solid #3399db;
+      }
+
+      .message.sent {
+        background: #e3f2fd;
+        border-left-color: #4db34d;
+      }
+
+      .message-header {
+        font-weight: 600;
+        color: #3399db;
+        margin-bottom: 5px;
+      }
+
+      .message-time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 15px;
+        border-top: 2px solid #e0e0e0;
+        background: white;
+      }
+
+      .chat-input input {
+        flex: 1;
+        margin-right: 10px;
+      }
+
+      .alert {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #3399db 0%, #2278ba 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      @media (max-width: 576px) {
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        h1, h2, h3 {
-            color: #3399DB;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background: #3399DB;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            margin: 5px;
-        }
-
-        .btn:hover {
-            background: #2278ba;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(51, 153, 219, 0.3);
-        }
-
-        .btn-success {
-            background: #4DB34D;
-        }
-
-        .btn-success:hover {
-            background: #3d923d;
-        }
-
-        .btn-warning {
-            background: #FF9933;
-        }
-
-        .btn-warning:hover {
-            background: #e67e1a;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #545b62;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #3399DB;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin: 5px;
-        }
-
-        .badge-alta {
-            background: #dc3545;
-            color: white;
-        }
-
-        .badge-media {
-            background: #FF9933;
-            color: white;
-        }
-
-        .badge-baja {
-            background: #4DB34D;
-            color: white;
-        }
-
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #3399DB;
-        }
-
-        .rating {
-            color: #FFD700;
-            font-size: 18px;
-        }
-
-        /* Botones fijos persistentes */
-        .fixed-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        .btn-fixed {
-            background: #3399DB;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .btn-fixed:hover {
-            background: #2278ba;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-        }
-
-        .btn-fixed.logout {
-            background: #dc3545;
-        }
-
-        .btn-fixed.logout:hover {
-            background: #c82333;
-        }
-
-        .btn-fixed.help {
-            background: #4DB34D;
-        }
-
-        .btn-fixed.help:hover {
-            background: #3d923d;
+          padding: 20px;
         }
 
         .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+          grid-template-columns: 1fr;
         }
 
-        .menu-card {
-            background: linear-gradient(135deg, #3399DB 0%, #2278ba 100%);
-            color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
+        .fixed-buttons {
+          bottom: 10px;
+          right: 10px;
         }
 
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(51, 153, 219, 0.4);
+        .btn-fixed {
+          padding: 10px 16px;
+          font-size: 12px;
         }
-
-        .menu-card h3 {
-            color: white;
-            margin: 0;
-        }
-
-        .chat-container {
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: #f9f9f9;
-        }
-
-        .message {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #3399DB;
-        }
-
-        .message.sent {
-            background: #e3f2fd;
-            border-left-color: #4DB34D;
-        }
-
-        .message-header {
-            font-weight: 600;
-            color: #3399DB;
-            margin-bottom: 5px;
-        }
-
-        .message-time {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            border-top: 2px solid #e0e0e0;
-            background: white;
-        }
-
-        .chat-input input {
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #3399DB 0%, #2278ba 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 20px;
-            }
-
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .fixed-buttons {
-                bottom: 10px;
-                right: 10px;
-            }
-
-            .btn-fixed {
-                padding: 10px 16px;
-                font-size: 12px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Botones fijos persistentes -->
-    <div class="fixed-buttons" id="fixedButtons" style="display: none;">
-        <button class="btn-fixed" id="btnBack" onclick="goBack()">← Volver</button>
-        <button class="btn-fixed help" onclick="navigate('help')">❓ Ayuda</button>
-        <button class="btn-fixed logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+    <div class="fixed-buttons" id="fixedButtons" style="display: none">
+      <button class="btn-fixed" id="btnBack" onclick="goBack()">
+        ← Volver
+      </button>
+      <button class="btn-fixed help" onclick="navigate('help')">
+        ❓ Ayuda
+      </button>
+      <button class="btn-fixed logout" onclick="cerrarSesion()">
+        🚪 Cerrar Sesión
+      </button>
     </div>
 
     <!-- Pantalla: Login -->
     <div id="login" class="container">
-        <h1>🏘️ Servicios Comunitarios</h1>
-        <h2>Iniciar Sesión</h2>
-        <form id="form-login" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>Nombre Completo:</label>
-                <input type="text" id="login-nombre" required>
-            </div>
-            <div class="form-group">
-                <label>Teléfono:</label>
-                <input type="tel" id="login-telefono" required pattern="[0-9]{10}">
-            </div>
-            <button type="submit" class="btn">Ingresar</button>
-            <button type="button" class="btn btn-success" onclick="navigate('register')">Registrarse</button>
-            <button type="button" class="btn btn-secondary" onclick="navigate('admin-login')">Admin</button>
-        </form>
+      <h1>🏘️ Servicios Comunitarios</h1>
+      <h2>Iniciar Sesión</h2>
+      <form id="form-login" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Nombre Completo:</label>
+          <input type="text" id="login-nombre" required />
+        </div>
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <input type="tel" id="login-telefono" required pattern="[0-9]{10}" />
+        </div>
+        <button type="submit" class="btn">Ingresar</button>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="navigate('register')"
+        >
+          Registrarse
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="navigate('admin-login')"
+        >
+          Admin
+        </button>
+      </form>
     </div>
 
     <!-- Pantalla: Admin Login -->
     <div id="admin-login" class="container hidden">
-        <h1>🔐 Acceso Administrativo</h1>
-        <form id="form-admin-login" onsubmit="handleAdminLogin(event)">
-            <div class="form-group">
-                <label>Contraseña de Administrador:</label>
-                <input type="password" id="admin-password" required>
-            </div>
-            <button type="submit" class="btn">Ingresar como Admin</button>
-            <button type="button" class="btn btn-secondary" onclick="navigate('login')">Volver al Login</button>
-        </form>
+      <h1>🔐 Acceso Administrativo</h1>
+      <form id="form-admin-login" onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label>Contraseña de Administrador:</label>
+          <input type="password" id="admin-password" required />
+        </div>
+        <button type="submit" class="btn">Ingresar como Admin</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="navigate('login')"
+        >
+          Volver al Login
+        </button>
+      </form>
     </div>
 
     <!-- Pantalla: Registro -->
     <div id="register" class="container hidden">
-        <h1>📝 Registro de Usuario</h1>
-        <form id="form-register" onsubmit="handleRegister(event)">
-            <div class="form-group">
-                <label>Nombre Completo:</label>
-                <input type="text" id="reg-nombre" required>
-            </div>
-            <div class="form-group">
-                <label>Teléfono:</label>
-                <input type="tel" id="reg-telefono" required pattern="[0-9]{10}">
-            </div>
-            <div class="form-group">
-                <label>Contraseña:</label>
-                <input type="password" id="reg-password" required minlength="6">
-            </div>
-            <div class="form-group">
-                <label>Género:</label>
-                <select id="reg-genero" required>
-                    <option value="">Seleccione...</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Tipo de Usuario:</label>
-                <select id="reg-tipo" required onchange="togglePrestadorFields()">
-                    <option value="">Seleccione...</option>
-                    <option value="usuario">Usuario Normal</option>
-                    <option value="prestador">Prestador de Servicios</option>
-                </select>
-            </div>
-            <div id="prestador-fields" class="hidden">
-                <div class="form-group">
-                    <label>URL de Foto (Avatar):</label>
-                    <input type="url" id="reg-foto" placeholder="https://i.pravatar.cc/150?img=1">
-                </div>
-                <div class="form-group">
-                    <label>Descripción de Servicios:</label>
-                    <textarea id="reg-descripcion"></textarea>
-                </div>
-            </div>
-            <button type="submit" class="btn">Registrarse</button>
-            <button type="button" class="btn btn-secondary" onclick="navigate('login')">Volver</button>
-        </form>
+      <h1>📝 Registro de Usuario</h1>
+      <form id="form-register" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Nombre Completo:</label>
+          <input type="text" id="reg-nombre" required />
+        </div>
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <input type="tel" id="reg-telefono" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña:</label>
+          <input type="password" id="reg-password" required minlength="6" />
+        </div>
+        <div class="form-group">
+          <label>Género:</label>
+          <select id="reg-genero" required>
+            <option value="">Seleccione...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de Usuario:</label>
+          <select id="reg-tipo" required onchange="togglePrestadorFields()">
+            <option value="">Seleccione...</option>
+            <option value="usuario">Usuario Normal</option>
+            <option value="prestador">Prestador de Servicios</option>
+          </select>
+        </div>
+        <div id="prestador-fields" class="hidden">
+          <div class="form-group">
+            <label>URL de Foto (Avatar):</label>
+            <input
+              type="url"
+              id="reg-foto"
+              placeholder="https://i.pravatar.cc/150?img=1"
+            />
+          </div>
+          <div class="form-group">
+            <label>Descripción de Servicios:</label>
+            <textarea id="reg-descripcion"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn">Registrarse</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="navigate('login')"
+        >
+          Volver
+        </button>
+      </form>
     </div>
 
     <!-- Pantalla: Home -->
     <div id="home" class="container hidden">
-        <h1>🏠 Menú Principal</h1>
-        <p id="welcome-message"></p>
-        <div class="menu-grid" id="menu-grid"></div>
+      <h1>🏠 Menú Principal</h1>
+      <p id="welcome-message"></p>
+      <div class="menu-grid" id="menu-grid"></div>
     </div>
 
     <!-- Pantalla: Perfil -->
     <div id="profile" class="container hidden">
-        <h1>👤 Mi Perfil</h1>
-        <div id="profile-content"></div>
-        <button class="btn" onclick="navigate('edit-profile')">✏️ Editar Perfil</button>
+      <h1>👤 Mi Perfil</h1>
+      <div id="profile-content"></div>
+      <button class="btn" onclick="navigate('edit-profile')">
+        ✏️ Editar Perfil
+      </button>
     </div>
 
     <!-- Pantalla: Editar Perfil -->
     <div id="edit-profile" class="container hidden">
-        <h1>✏️ Editar Perfil</h1>
-        <form id="form-edit-profile" onsubmit="handleEditProfile(event)">
-            <div class="form-group">
-                <label>Nombre Completo:</label>
-                <input type="text" id="edit-nombre" required>
-            </div>
-            <div class="form-group">
-                <label>Teléfono:</label>
-                <input type="tel" id="edit-telefono" required pattern="[0-9]{10}">
-            </div>
-            <div class="form-group">
-                <label>Género:</label>
-                <select id="edit-genero" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-                </select>
-            </div>
-            <div id="edit-prestador-fields" class="hidden">
-                <div class="form-group">
-                    <label>URL de Foto (Avatar):</label>
-                    <input type="url" id="edit-foto">
-                </div>
-                <div class="form-group">
-                    <label>Descripción de Servicios:</label>
-                    <textarea id="edit-descripcion"></textarea>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
-            <button type="button" class="btn btn-secondary" onclick="navigate('profile')">Cancelar</button>
-        </form>
+      <h1>✏️ Editar Perfil</h1>
+      <form id="form-edit-profile" onsubmit="handleEditProfile(event)">
+        <div class="form-group">
+          <label>Nombre Completo:</label>
+          <input type="text" id="edit-nombre" required />
+        </div>
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <input type="tel" id="edit-telefono" required pattern="[0-9]{10}" />
+        </div>
+        <div class="form-group">
+          <label>Género:</label>
+          <select id="edit-genero" required>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+          </select>
+        </div>
+        <div id="edit-prestador-fields" class="hidden">
+          <div class="form-group">
+            <label>URL de Foto (Avatar):</label>
+            <input type="url" id="edit-foto" />
+          </div>
+          <div class="form-group">
+            <label>Descripción de Servicios:</label>
+            <textarea id="edit-descripcion"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">
+          💾 Guardar Cambios
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="navigate('profile')"
+        >
+          Cancelar
+        </button>
+      </form>
     </div>
 
     <!-- Pantalla: Buscar Servicios -->
     <div id="services" class="container hidden">
-        <h1>🔍 Buscar Servicios</h1>
-        <div class="form-group">
-            <input type="text" id="search-services" placeholder="Buscar por categoría o nombre..." onkeyup="filterServices()">
-        </div>
-        <div id="services-list"></div>
+      <h1>🔍 Buscar Servicios</h1>
+      <div class="form-group">
+        <input
+          type="text"
+          id="search-services"
+          placeholder="Buscar por categoría o nombre..."
+          onkeyup="filterServices()"
+        />
+      </div>
+      <div id="services-list"></div>
     </div>
 
     <!-- Pantalla: Mis Servicios -->
     <div id="my-services" class="container hidden">
-        <h1>📋 Mis Servicios Publicados</h1>
-        <div id="my-services-list"></div>
+      <h1>📋 Mis Servicios Publicados</h1>
+      <div id="my-services-list"></div>
     </div>
 
     <!-- Pantalla: Publicar Servicio -->
     <div id="publish-service" class="container hidden">
-        <h1>➕ Publicar Nuevo Servicio</h1>
-        <form id="form-publish" onsubmit="handlePublishService(event)">
-            <div class="form-group">
-                <label>Categoría:</label>
-                <select id="pub-categoria" required>
-                    <option value="">Seleccione...</option>
-                    <option value="Limpieza">Limpieza</option>
-                    <option value="Plomería">Plomería</option>
-                    <option value="Electricidad">Electricidad</option>
-                    <option value="Jardinería">Jardinería</option>
-                    <option value="Cuidado">Cuidado</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Asesorías">Asesorías</option>
-                    <option value="Otros">Otros</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Descripción del Servicio:</label>
-                <textarea id="pub-descripcion" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Precio (COP):</label>
-                <input type="number" id="pub-precio" required min="0">
-            </div>
-            <button type="submit" class="btn btn-success">Publicar Servicio</button>
-        </form>
+      <h1>➕ Publicar Nuevo Servicio</h1>
+      <form id="form-publish" onsubmit="handlePublishService(event)">
+        <div class="form-group">
+          <label>Categoría:</label>
+          <select id="pub-categoria" required>
+            <option value="">Seleccione...</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Plomería">Plomería</option>
+            <option value="Electricidad">Electricidad</option>
+            <option value="Jardinería">Jardinería</option>
+            <option value="Cuidado">Cuidado</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Asesorías">Asesorías</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Descripción del Servicio:</label>
+          <textarea id="pub-descripcion" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Precio (COP):</label>
+          <input type="number" id="pub-precio" required min="0" />
+        </div>
+        <button type="submit" class="btn btn-success">Publicar Servicio</button>
+      </form>
     </div>
 
     <!-- Pantalla: Solicitudes -->
     <div id="requests" class="container hidden">
-        <h1>📝 Solicitudes de Servicios</h1>
-        <div id="requests-list"></div>
+      <h1>📝 Solicitudes de Servicios</h1>
+      <div id="requests-list"></div>
     </div>
 
     <!-- Pantalla: Crear Solicitud -->
     <div id="create-request" class="container hidden">
-        <h1>➕ Crear Solicitud de Servicio</h1>
-        <form id="form-request" onsubmit="handleCreateRequest(event)">
-            <div class="form-group">
-                <label>Categoría:</label>
-                <select id="req-categoria" required>
-                    <option value="">Seleccione...</option>
-                    <option value="Limpieza">Limpieza</option>
-                    <option value="Plomería">Plomería</option>
-                    <option value="Electricidad">Electricidad</option>
-                    <option value="Jardinería">Jardinería</option>
-                    <option value="Cuidado">Cuidado</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Asesorías">Asesorías</option>
-                    <option value="Otros">Otros</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Descripción de la Solicitud:</label>
-                <textarea id="req-descripcion" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Urgencia:</label>
-                <select id="req-urgencia" required>
-                    <option value="">Seleccione...</option>
-                    <option value="Alta">Alta</option>
-                    <option value="Media">Media</option>
-                    <option value="Baja">Baja</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-success">Crear Solicitud</button>
-        </form>
+      <h1>➕ Crear Solicitud de Servicio</h1>
+      <form id="form-request" onsubmit="handleCreateRequest(event)">
+        <div class="form-group">
+          <label>Categoría:</label>
+          <select id="req-categoria" required>
+            <option value="">Seleccione...</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Plomería">Plomería</option>
+            <option value="Electricidad">Electricidad</option>
+            <option value="Jardinería">Jardinería</option>
+            <option value="Cuidado">Cuidado</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Asesorías">Asesorías</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Descripción de la Solicitud:</label>
+          <textarea id="req-descripcion" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Urgencia:</label>
+          <select id="req-urgencia" required>
+            <option value="">Seleccione...</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Crear Solicitud</button>
+      </form>
     </div>
 
     <!-- Pantalla: Mensajes/Chat -->
     <div id="messages" class="container hidden">
-        <h1>💬 Mensajes</h1>
-        <div class="form-group">
-            <label>Conversar con:</label>
-            <select id="chat-destinatario" onchange="loadChatMessages()">
-                <option value="">Seleccione...</option>
-                <option value="admin">Soporte (Admin)</option>
-            </select>
+      <h1>💬 Mensajes</h1>
+      <div class="form-group">
+        <label>Conversar con:</label>
+        <select id="chat-destinatario" onchange="loadChatMessages()">
+          <option value="">Seleccione...</option>
+          <option value="admin">Soporte (Admin)</option>
+        </select>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Escribe un mensaje..."
+          />
+          <button class="btn" onclick="sendMessage()">Enviar</button>
         </div>
-        <div class="chat-container">
-            <div class="chat-messages" id="chat-messages"></div>
-            <div class="chat-input">
-                <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
-                <button class="btn" onclick="sendMessage()">Enviar</button>
-            </div>
-        </div>
+      </div>
     </div>
 
     <!-- Pantalla: Admin Panel -->
     <div id="admin" class="container hidden">
-        <h1>🔧 Panel de Administración</h1>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="stat-usuarios">0</div>
-                <div class="stat-label">Usuarios</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="stat-servicios">0</div>
-                <div class="stat-label">Servicios</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="stat-solicitudes">0</div>
-                <div class="stat-label">Solicitudes</div>
-            </div>
+      <h1>🔧 Panel de Administración</h1>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-usuarios">0</div>
+          <div class="stat-label">Usuarios</div>
         </div>
-        
-        <h2>Usuarios Registrados</h2>
-        <div id="admin-usuarios"></div>
-        
-        <h2>Servicios Publicados</h2>
-        <div id="admin-servicios"></div>
-        
-        <h2>Solicitudes</h2>
-        <div id="admin-solicitudes"></div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-servicios">0</div>
+          <div class="stat-label">Servicios</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-solicitudes">0</div>
+          <div class="stat-label">Solicitudes</div>
+        </div>
+      </div>
+
+      <h2>Usuarios Registrados</h2>
+      <div id="admin-usuarios"></div>
+
+      <h2>Servicios Publicados</h2>
+      <div id="admin-servicios"></div>
+
+      <h2>Solicitudes</h2>
+      <div id="admin-solicitudes"></div>
     </div>
 
     <!-- Pantalla: Centro de Ayuda -->
     <div id="help" class="container hidden">
-        <h1>❓ Centro de Ayuda</h1>
-        <div class="card">
-            <h3>¿Cómo usar la plataforma?</h3>
-            <p>Esta plataforma conecta personas que necesitan servicios con prestadores de servicios comunitarios.</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>Usuarios:</strong> Pueden buscar servicios y crear solicitudes.</li>
-                <li><strong>Prestadores:</strong> Pueden publicar servicios y ver solicitudes.</li>
-                <li><strong>Chat:</strong> Comunícate directamente con otros usuarios o soporte.</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>📞 Contacto de Soporte</h3>
-            <p>Si necesitas ayuda, usa el chat interno para contactar con el administrador.</p>
-            <button class="btn" onclick="navigate('messages')">Ir al Chat</button>
-        </div>
+      <h1>❓ Centro de Ayuda</h1>
+      <div class="card">
+        <h3>¿Cómo usar la plataforma?</h3>
+        <p>
+          Esta plataforma conecta personas que necesitan servicios con
+          prestadores de servicios comunitarios.
+        </p>
+        <ul style="margin-left: 20px; margin-top: 10px">
+          <li>
+            <strong>Usuarios:</strong> Pueden buscar servicios y crear
+            solicitudes.
+          </li>
+          <li>
+            <strong>Prestadores:</strong> Pueden publicar servicios y ver
+            solicitudes.
+          </li>
+          <li>
+            <strong>Chat:</strong> Comunícate directamente con otros usuarios o
+            soporte.
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📞 Contacto de Soporte</h3>
+        <p>
+          Si necesitas ayuda, usa el chat interno para contactar con el
+          administrador.
+        </p>
+        <button class="btn" onclick="navigate('messages')">Ir al Chat</button>
+      </div>
     </div>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
